@@ -171,7 +171,7 @@
 //       }`}
 //     >
 //       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between text-white">
-        
+
 //         {/* LOGO */}
 //         <Link href="/" className="flex items-center gap-2 font-bold text-lg">
 //           🚗 <span>CAR <span className="text-red-500">SERVX</span></span>
@@ -297,7 +297,7 @@
 //         <ul className="hidden md:flex items-center gap-10">
 //           {navItems.map((item) => (
 //             <li key={item} className="relative group">
-              
+
 //               <Link
 //                 href={`/${item === "Home" ? "" : item.toLowerCase().replace(" ", "")}`}
 //                 className="text-sm font-medium tracking-wide transition-colors group-hover:text-red-500"
@@ -314,7 +314,7 @@
 //         {/* DESKTOP ACTIONS */}
 //         <div className="hidden md:flex items-center gap-6">
 //           <Search size={18} className="cursor-pointer hover:text-red-500 transition" />
-          
+
 
 //           <Link href="/cart" className="hover:scale-105 transition">
 //             <ShoppingCart size={20} />
@@ -642,7 +642,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ShoppingCart, Menu, X, User, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ShoppingCart, Menu, X, User, Search, LogOut } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 
 const navItems = ["Home", "Services", "Main Products", "About", "Contact"];
 
@@ -663,6 +665,10 @@ const serviceLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // Check if we're on the home page
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -670,16 +676,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Determine navbar background - force dark on non-home pages
+  const navbarBg = isHomePage
+    ? (scrolled ? "bg-[#1f2a30] shadow-lg" : "bg-transparent")
+    : "bg-[#1f2a30] shadow-md";
+
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#1f2a30] shadow-lg" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navbarBg}`}
     >
       <nav
-        className={`max-w-7xl mx-auto px-6 py-4 flex items-center justify-between transition-colors ${
-          scrolled ? "text-white" : "text-white"
-        }`}
+        className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between transition-colors text-white"
       >
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3">
