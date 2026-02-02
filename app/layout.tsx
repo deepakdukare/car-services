@@ -1,6 +1,5 @@
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import LayoutWrapper from "./components/LayoutWrapper";
 export default function RootLayout({
   children,
 }: {
@@ -9,9 +8,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-black text-white">
-        <Navbar />
-        {children}
-        <Footer/>
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

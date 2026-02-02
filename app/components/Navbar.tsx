@@ -171,7 +171,7 @@
 //       }`}
 //     >
 //       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between text-white">
-        
+
 //         {/* LOGO */}
 //         <Link href="/" className="flex items-center gap-2 font-bold text-lg">
 //           🚗 <span>CAR <span className="text-red-500">SERVX</span></span>
@@ -297,7 +297,7 @@
 //         <ul className="hidden md:flex items-center gap-10">
 //           {navItems.map((item) => (
 //             <li key={item} className="relative group">
-              
+
 //               <Link
 //                 href={`/${item === "Home" ? "" : item.toLowerCase().replace(" ", "")}`}
 //                 className="text-sm font-medium tracking-wide transition-colors group-hover:text-red-500"
@@ -314,7 +314,7 @@
 //         {/* DESKTOP ACTIONS */}
 //         <div className="hidden md:flex items-center gap-6">
 //           <Search size={18} className="cursor-pointer hover:text-red-500 transition" />
-          
+
 
 //           <Link href="/cart" className="hover:scale-105 transition">
 //             <ShoppingCart size={20} />
@@ -672,14 +672,12 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#1f2a30] shadow-lg" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-[#1f2a30] shadow-lg" : "bg-transparent"
+        }`}
     >
       <nav
-        className={`max-w-7xl mx-auto px-6 py-4 flex items-center justify-between transition-colors ${
-          scrolled ? "text-white" : "text-white"
-        }`}
+        className={`max-w-7xl mx-auto px-6 py-4 flex items-center justify-between transition-colors ${scrolled ? "text-white" : "text-white"
+          }`}
       >
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3">
@@ -757,7 +755,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/login"
+            href="/admin/login"
             className="flex items-center gap-1 text-sm hover:text-red-500 transition"
           >
             <User size={16} /> Log In
@@ -834,7 +832,7 @@ export default function Navbar() {
             ))}
 
             <li className="py-4">
-              <Link href="/login" onClick={() => setOpen(false)}>
+              <Link href="/admin/login" onClick={() => setOpen(false)}>
                 Log In
               </Link>
             </li>

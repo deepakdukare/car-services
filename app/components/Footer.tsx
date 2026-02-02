@@ -236,11 +236,11 @@ export default function Footer() {
             </h4>
             <ul className="mt-6 space-y-4 text-sm text-gray-300">
               <li>Dubai, UAE</li>
-              <li>+971 XX XXX XXXX</li>
+              <li>+971 6589 50887</li>
               <li>info@jadeandandy.com</li>
               <li>
                 <a
-                  href="https://wa.me/971XXXXXXXXX"
+                  href="https://wa.me/971658950887"
                   target="_blank"
                   className="
                     inline-flex items-center gap-2

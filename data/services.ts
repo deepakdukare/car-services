@@ -23,20 +23,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const services = [
   {
     id: "brake-system",
@@ -99,7 +85,7 @@ export const services = [
   },
 
   {
-    id: "cooling-systemcooling-system",
+    id: "cooling-system",
     title: "Cooling System Services",
     shortDescription:
       "Professional cooling system repairs to prevent overheating and keep your engine running at optimal temperature.",

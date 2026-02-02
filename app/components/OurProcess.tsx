@@ -346,7 +346,7 @@ export default function OurProcess() {
       <div
         className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-10"
         style={{
-          backgroundImage: "url('/process-bg-car.png')",
+          backgroundImage: "url('/services/services-hero.jpg')",
         }}
       />
 

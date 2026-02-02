@@ -6,7 +6,7 @@ export interface ContactInfo {
 }
 
 export const contactData: ContactInfo = {
-  phone: "(+61) 0370 105 611",
+  phone: "+971 6589 50887",
   email: "carservx@gmail.com",
   address: "55/11 Land Street, Modern New York City, USA",
   mapEmbedUrl:

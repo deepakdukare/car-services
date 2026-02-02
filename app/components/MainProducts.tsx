@@ -1058,7 +1058,7 @@ export default function MainProducts() {
             </Link>
 
             <Image
-              src="/oil.png"
+              src="/Oil.png"
               alt="Engine Oils"
               width={300}
               height={420}
@@ -1068,7 +1068,7 @@ export default function MainProducts() {
 
         </div>
 
-       
+
 
       </div>
     </section>

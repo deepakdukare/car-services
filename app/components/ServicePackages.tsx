@@ -81,13 +81,15 @@
 
 
 
-"use client";
+import { prisma } from "@/lib/prisma";
 
-import { servicePackages } from "@/data/servicePackages";
+export default async function ServicePackages() {
+  const packages = await prisma.servicePackage.findMany({
+    orderBy: { createdAt: "asc" }
+  });
 
-export default function ServicePackages() {
   return (
-    <section className="bg-gray-100 py-28">
+    <section id="packages" className="bg-gray-100 py-28">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* HEADER */}
@@ -104,59 +106,59 @@ export default function ServicePackages() {
 
         {/* PACKAGES GRID */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {servicePackages.map((pkg) => (
-            <div
-              key={pkg.id}
-              className={`group relative flex flex-col justify-between
-                transition-all duration-500 ease-out
-                ${
-                  pkg.highlighted
+          {packages.map((pkg) => {
+            const features = JSON.parse(pkg.features || '[]');
+
+            return (
+              <div
+                key={pkg.id}
+                className={`group relative flex flex-col justify-between
+                  transition-all duration-500 ease-out
+                  ${pkg.highlighted
                     ? "bg-red-600 text-white -translate-y-4 shadow-2xl"
                     : "bg-[#1f2a30] text-white hover:bg-red-600 hover:-translate-y-4"
-                }`}
-            >
-              {/* TOP CONTENT */}
-              <div className="p-8">
-                <h3 className="text-lg uppercase tracking-widest mb-6">
-                  {pkg.title}
-                </h3>
-
-                <div className="mb-8">
-                  <span className="text-5xl font-bold">
-                    {pkg.price}
-                  </span>
-                 
-                </div>
-
-                <ul className="space-y-4 text-sm">
-                  {pkg.features
-                    .filter((f) => f.included)
-                    .map((f, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <span className="text-lg">{">"}</span>
-                        <span>{f.label}</span>
-                      </li>
-                    ))}
-                </ul>
-              </div>
-
-              {/* BOTTOM BAR */}
-              <div
-                className={`p-6 text-center transition-colors duration-300
-                  ${
-                    pkg.highlighted
-                      ? "bg-[#1f2a30]"
-                      : "bg-[#232f36] group-hover:bg-[#1f2a30]"
                   }`}
               >
-                <button className="bg-red-600 px-10 py-3 text-xs font-semibold tracking-widest uppercase hover:bg-black transition">
-                  SELECT PLAN
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+                {/* TOP CONTENT */}
+                <div className="p-8">
+                  <h3 className="text-lg uppercase tracking-widest mb-6">
+                    {pkg.title}
+                  </h3>
 
+                  <div className="mb-8 font-bold">
+                    <span className="text-3xl lg:text-4xl">
+                      {pkg.price}
+                    </span>
+                  </div>
+
+                  <ul className="space-y-4 text-sm">
+                    {features
+                      .filter((f: any) => f.included)
+                      .map((f: any, i: number) => (
+                        <li key={i} className="flex items-center gap-3">
+                          <span className="text-lg">{">"}</span>
+                          <span>{f.label}</span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+
+                {/* BOTTOM BAR */}
+                <div
+                  className={`p-6 text-center transition-colors duration-300
+                    ${pkg.highlighted
+                      ? "bg-[#1f2a30]"
+                      : "bg-[#232f36] group-hover:bg-[#1f2a30]"
+                    }`}
+                >
+                  <button className="bg-red-600 px-10 py-3 text-xs font-semibold tracking-widest uppercase hover:bg-black transition">
+                    SELECT PLAN
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

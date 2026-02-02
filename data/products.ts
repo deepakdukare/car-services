@@ -21,9 +21,9 @@ export const mainProducts = {
       },
     ],
     ctaText: "Book Now",
-    phone: "+971555350887",
+    phone: "+971 6589 50887",
     productCard: {
-      image: "/images/tyre-machine.png",
+      image: "/tyres.png",
       title: "Tyre & Wheel Service",
       desc: "Ensure safe driving with our professional tyre fitting, balancing and alignment services in Dubai.",
     },
@@ -51,9 +51,9 @@ export const mainProducts = {
       },
     ],
     ctaText: "Book Now",
-    phone: "+971555350887",
+    phone: "+971 6589 50887",
     productCard: {
-      image: "/images/oil-machine.png",
+      image: "/Oil.png",
       title: "Engine Oil Service",
       desc: "Protect your engine with our premium oil change service in Dubai. Book now!",
     },

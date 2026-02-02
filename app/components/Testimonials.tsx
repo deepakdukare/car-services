@@ -1,51 +1,14 @@
-"use client";
+import { prisma } from "@/lib/prisma";
 
-const testimonials = [
-  {
-    name: "Ahmed Al-Farsi",
-    role: "Business Owner · Downtown Dubai",
-    image: "/testimonials/user1.jpg",
-    review:
-      "Professional service with clear communication. The team handled my vehicle with great care and delivered exactly as promised.",
-  },
-  {
-    name: "Michael Turner",
-    role: "Luxury Car Owner · Dubai Marina",
-    image: "/testimonials/user2.jpg",
-    review:
-      "One of the few workshops in Dubai I genuinely trust. Transparent pricing and excellent workmanship.",
-  },
-  {
-    name: "Sarah Williams",
-    role: "Fleet Manager · JLT",
-    image: "/testimonials/user3.jpg",
-    review:
-      "We service multiple vehicles here. Consistent quality, timely delivery, and professional reporting every time.",
-  },
-  {
-    name: "Omar Khan",
-    role: "SUV Owner · Al Barsha",
-    image: "/testimonials/user4.jpg",
-    review:
-      "Very organized setup and knowledgeable staff. They explained the work clearly before starting.",
-  },
-  {
-    name: "Daniel Rossi",
-    role: "Performance Car Owner · Business Bay",
-    image: "/testimonials/user5.jpg",
-    review:
-      "Attention to detail is excellent. The workshop environment and service quality meet high standards.",
-  },
-  {
-    name: "Fatima Noor",
-    role: "Premium Sedan Owner · Dubai Hills",
-    image: "/testimonials/user6.jpg",
-    review:
-      "Smooth experience from booking to delivery. Everything was handled professionally and on time.",
-  },
-];
+export default async function Testimonials() {
+  const testimonials = await prisma.testimonial.findMany({
+    orderBy: { createdAt: 'desc' }
+  });
 
-export default function Testimonials() {
+  // If no testimonials in DB (e.g. before seed), fall back to empty or static?
+  // We'll assumes seed ran. If empty, the slider just won't show items or show empty.
+  // Ideally we should have a fallback but for now dynamic is key.
+
   return (
     <section className="bg-white py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">

@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ServiceCategory {
+  id               String        @id @map("_id")
+  title            String
+  shortDescription String
+  image            String
+  highlights       String
+  ctaText          String
+  items            ServiceItem[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+enum ServiceType {
+  DIAGNOSTIC
+  PREVENTIVE
+  REPAIR
+}
+
+enum ServiceStatus {
+  ACTIVE
+  INACTIVE
+  DRAFT
+}
+
+model ServiceItem {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  description     String
+  price           String
+  basePrice       Float           @default(0)
+  time            String
+  durationMinutes Int             @default(0)
+  serviceType     ServiceType     @default(REPAIR)
+  status          ServiceStatus   @default(ACTIVE)
+  image           String
+  categoryId      String
+  category        ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model ProductSection {
+  id        String   @id @map("_id")
+  title     String
+  highlight String
+  features  String
+  ctaText   String
+  phone     String
+  cardTitle String
+  cardDesc  String
+  cardImage String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteConfig {
+  id           Int      @id @default(1) @map("_id")
+  phone        String
+  discountText String
+  updatedAt    DateTime @updatedAt
+}
+
+model Stats {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  label     String
+  value     Int
+  icon      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ServicePackage {
+  id          String   @id @map("_id")
+  title       String
+  price       String
+  highlighted Boolean  @default(false)
+  features    String   // JSON string of {label: string, included: boolean}[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  role      String
+  image     String
+  review    String
+  rating    Int      @default(5)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TeamMember {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  role      String
+  image     String
+  socials   String   // JSON string for {facebook, twitter, instagram}
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
