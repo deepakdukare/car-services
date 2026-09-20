@@ -1,13 +1,47 @@
 import { prisma } from "@/lib/prisma";
 
-export default async function Testimonials() {
-  const testimonials = await prisma.testimonial.findMany({
-    orderBy: { createdAt: 'desc' }
-  });
+const defaultTestimonials = [
+  {
+    id: "1",
+    name: "Alexander Bull",
+    role: "Loyal Customer For 3 Years",
+    image: "/about/pic11.jpg",
+    review: "There are many variations of passages of lorem Ipsum available, but the majority have suffered.",
+  },
+  {
+    id: "2",
+    name: "John David",
+    role: "Loyal Customer For 3 Years",
+    image: "/about/pic12.jpg",
+    review: "There are many variations of passages of lorem Ipsum available, but the majority have suffered.",
+  },
+  {
+    id: "3",
+    name: "Alina Danial",
+    role: "Loyal Customer For 3 Years",
+    image: "/about/pic13.jpg",
+    review: "There are many variations of passages of lorem Ipsum available, but the majority have suffered.",
+  },
+  {
+    id: "4",
+    name: "Rosalina William",
+    role: "Loyal Customer For 3 Years",
+    image: "/about/pic14.jpg",
+    review: "There are many variations of passages of lorem Ipsum available, but the majority have suffered.",
+  },
+];
 
-  // If no testimonials in DB (e.g. before seed), fall back to empty or static?
-  // We'll assumes seed ran. If empty, the slider just won't show items or show empty.
-  // Ideally we should have a fallback but for now dynamic is key.
+export default async function Testimonials() {
+  let testimonials: any[] = [];
+  try {
+    testimonials = await prisma.testimonial.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+  } catch {
+    // Database offline or unseeded; proceed with fallback
+  }
+
+  const items = testimonials && testimonials.length > 0 ? testimonials : defaultTestimonials;
 
   return (
     <section className="bg-white py-32 overflow-hidden">
@@ -32,7 +66,7 @@ export default async function Testimonials() {
         {/* AUTO SLIDER */}
         <div className="relative w-full">
           <div className="flex gap-12 animate-testimonial-scroll-slow">
-            {[...testimonials, ...testimonials].map((item, index) => (
+            {[...items, ...items].map((item, index) => (
               <div
                 key={index}
                 className="

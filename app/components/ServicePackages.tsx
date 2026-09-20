@@ -82,11 +82,24 @@
 
 
 import { prisma } from "@/lib/prisma";
+import { servicePackages as defaultPackages } from "@/data/servicePackages";
 
 export default async function ServicePackages() {
-  const packages = await prisma.servicePackage.findMany({
-    orderBy: { createdAt: "asc" }
-  });
+  let packages: any[] = [];
+  try {
+    packages = await prisma.servicePackage.findMany({
+      orderBy: { createdAt: "asc" }
+    });
+  } catch {
+    // DB offline or unseeded
+  }
+
+  const items = packages && packages.length > 0 
+    ? packages 
+    : defaultPackages.map(pkg => ({
+        ...pkg,
+        features: JSON.stringify(pkg.features)
+      }));
 
   return (
     <section id="packages" className="bg-gray-100 py-28">
@@ -106,7 +119,7 @@ export default async function ServicePackages() {
 
         {/* PACKAGES GRID */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {packages.map((pkg) => {
+          {items.map((pkg: any) => {
             const features = JSON.parse(pkg.features || '[]');
 
             return (
